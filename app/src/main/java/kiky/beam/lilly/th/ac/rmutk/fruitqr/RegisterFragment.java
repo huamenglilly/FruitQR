@@ -24,6 +24,7 @@ public class RegisterFragment extends Fragment {
     private  boolean aBoolean = true;
 
 
+
     public RegisterFragment() {
         // Required empty public constructor
     }
@@ -120,6 +121,22 @@ public class RegisterFragment extends Fragment {
         }else{
 
 //            Upload to Server
+            try {
+
+                Myconstant myconstant = new Myconstant();
+                AddUserThread addUserThread = new AddUserThread(getActivity());
+                addUserThread.execute(name,surname,address,phone,user,password,typeString,myconstant.getUrlAddUser());
+
+                if (Boolean.parseBoolean(addUserThread.get())) {
+                    getActivity().getSupportFragmentManager().popBackStack();
+                }else{
+                    myAlertDialog.normalDialog("Cannot Upload","Please Try Again");
+                }
+
+
+            }catch (Exception e){
+                e.printStackTrace();
+            }
 
 
         }
